@@ -1,11 +1,15 @@
 import Image from "next/image";
 import styles from "./page.module.css";
+import { kv } from "@vercel/kv";
 
-export default function Home() {
+export const dynamic = "force-dynamic";
+
+export default async function Home() {
+  const views = await kv.incr("views");
   return (
     <main className={styles.main}>
       <div className={styles.description}>
-        <p>Hello world</p>
+        <p>Nombre de vues : {views}</p>
         <div>
           <a
             href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
